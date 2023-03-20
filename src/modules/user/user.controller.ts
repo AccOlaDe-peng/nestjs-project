@@ -1,6 +1,6 @@
 import { AuthGuard } from '@/guard/auth/auth.guard';
 import { Body, Controller, Get, Post, UseGuards } from '@nestjs/common';
-import { userRegisterType } from './user.dto';
+import { CreateUserDto } from './user.dto';
 import { UserService } from './user.service';
 
 @Controller('user')
@@ -14,7 +14,8 @@ export class UserController {
 
   // 注册
   @Post('register')
-  register(@Body() body: userRegisterType) {
+  register(@Body() body: CreateUserDto) {
+    this.userService.createUser(body);
     return { token: 'fake_token' }; // 直接下发token，真实场景下需要验证账号密码
   }
 
